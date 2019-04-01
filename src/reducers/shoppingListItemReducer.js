@@ -1,16 +1,29 @@
-export default function shoppingListItemReducer(state = {
-  items: []
-}, action) {
-  console.log(action);
-  switch(action.type) {
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './App.css';
 
-    case 'INCREASE_COUNT':
-      console.log("Current state.items length %s", state.items.length);
-      console.log("Updating state.items length to %s", state.items.length + 1);
-      return Object.assign({}, state, { items: state.items.concat(state.items.length + 1) });
+class App extends Component {
 
-    default:
-      console.log("Initial state.items length: %s", state.items.length);
-      return state;
+  handleOnClick() {
+    this.props.dispatch({
+      type: 'INCREASE_COUNT',
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <button onClick={(event) => this.handleOnClick()}>
+          Click
+        </button>
+        <p>{this.props.items.length}</p>
+      </div>
+    );
   }
 };
+
+const mapStateToProps = state => {
+  return { items: state.items };
+}
+
+export default connect(mapStateToProps)(App);
