@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'; /* code change */
 import './App.css';
 
 class App extends Component {
 
-  handleOnClick() {
-    this.props.store.dispatch({
+  handleOnClick() { 
+    this.props.store.dispatch({  
       type: 'INCREASE_COUNT',
     });
   }
-
-  render() {
+  
+  render() { 
     return (
       <div className="App">
         <button onClick={(event) => this.handleOnClick()}>
@@ -21,4 +22,9 @@ class App extends Component {
   }
 };
 
-export default App;
+// start of code change
+const mapStateToProps = (state) =>{
+return{ item: state.items };
+
+}
+export default connect(mapStateToProps) (App);
